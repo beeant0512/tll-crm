@@ -1,0 +1,7 @@
+buildscript {
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        maven { url "http://mirrors.163.com/" }
+        mavenCentral()
+    }
+}
