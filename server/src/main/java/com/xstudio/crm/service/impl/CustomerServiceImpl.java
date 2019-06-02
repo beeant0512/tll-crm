@@ -1,5 +1,6 @@
 package com.xstudio.crm.service.impl;
 
+import com.xstudio.config.security.SecurityContextUtil;
 import com.xstudio.crm.mapper.CustomerMapper;
 import com.xstudio.crm.model.Customer;
 import com.xstudio.crm.service.ICustomerService;
@@ -34,7 +35,6 @@ public class CustomerServiceImpl extends MybatisPaginatorServiceImpl<Customer, L
 
     @Override
     public String getActorId(Customer record) {
-        // todo
-        return "";
+        return String.valueOf(SecurityContextUtil.userId());
     }
 }

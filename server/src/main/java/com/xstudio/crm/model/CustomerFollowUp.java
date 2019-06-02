@@ -2,10 +2,11 @@ package com.xstudio.crm.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.xstudio.tool.utils.BaseModelObject2;
-import java.io.Serializable;
-import java.util.Date;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  *

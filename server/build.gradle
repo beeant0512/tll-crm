@@ -78,6 +78,7 @@ dependencies {
     compile("com.xstudio:spring-mybatis-paginator:${toolVersion}")
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

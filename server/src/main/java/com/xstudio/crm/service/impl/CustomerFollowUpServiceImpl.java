@@ -1,9 +1,9 @@
 package com.xstudio.crm.service.impl;
 
+import com.xstudio.config.security.SecurityContextUtil;
 import com.xstudio.crm.mapper.CustomerFollowUpMapper;
 import com.xstudio.crm.model.CustomerFollowUp;
 import com.xstudio.crm.service.ICustomerFollowUpService;
-import com.xstudio.spring.core.ContextUtil;
 import com.xstudio.spring.mybatis.paginator.IMybatisPaginatorDao;
 import com.xstudio.spring.mybatis.paginator.MybatisPaginatorServiceImpl;
 import com.xstudio.tool.utils.IdWorker;
@@ -28,7 +28,6 @@ public class CustomerFollowUpServiceImpl extends MybatisPaginatorServiceImpl<Cus
 
     @Override
     public void setDefaults(CustomerFollowUp record) {
-        // todo
         if(record.getId() == null ) {
             record.setId(IdWorker.getId());
         }
@@ -36,7 +35,6 @@ public class CustomerFollowUpServiceImpl extends MybatisPaginatorServiceImpl<Cus
 
     @Override
     public String getActorId(CustomerFollowUp record) {
-        // todo
-        return "";
+        return String.valueOf(SecurityContextUtil.userId());
     }
 }

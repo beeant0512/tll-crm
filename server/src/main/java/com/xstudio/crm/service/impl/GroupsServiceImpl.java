@@ -1,5 +1,6 @@
 package com.xstudio.crm.service.impl;
 
+import com.xstudio.config.security.SecurityContextUtil;
 import com.xstudio.crm.mapper.GroupsMapper;
 import com.xstudio.crm.model.Groups;
 import com.xstudio.crm.service.IGroupsService;
@@ -28,7 +29,6 @@ public class GroupsServiceImpl extends MybatisPaginatorServiceImpl<Groups, Long>
 
     @Override
     public void setDefaults(Groups record) {
-        // todo
         if (record.getItemId() == null) {
             record.setItemId(IdWorker.getId());
         }
@@ -36,7 +36,6 @@ public class GroupsServiceImpl extends MybatisPaginatorServiceImpl<Groups, Long>
 
     @Override
     public String getActorId(Groups record) {
-        // todo
-        return null;
+        return String.valueOf(SecurityContextUtil.userId());
     }
 }

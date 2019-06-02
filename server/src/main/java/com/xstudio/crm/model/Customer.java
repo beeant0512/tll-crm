@@ -1,9 +1,10 @@
 package com.xstudio.crm.model;
 
 import com.xstudio.tool.utils.BaseModelObject2;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
 
 /**
  *
