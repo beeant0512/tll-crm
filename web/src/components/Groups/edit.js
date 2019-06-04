@@ -21,7 +21,7 @@ class GroupsEditModal extends PureComponent {
       dispatch({
         type: 'groups/validate',
         payload,
-        callback: (response) => {
+        callback: response => {
           if (!response.success) {
             callback(response.msg);
           } else {
@@ -52,7 +52,7 @@ class GroupsEditModal extends PureComponent {
       dispatch({
         type,
         payload: values,
-        callback: (response) => {
+        callback: response => {
           if (response.success) {
             onOk(response.data);
           }
@@ -62,7 +62,13 @@ class GroupsEditModal extends PureComponent {
   };
 
   render() {
-    const { form: { getFieldDecorator }, visible, title, values, width } = this.props;
+    const {
+      form: { getFieldDecorator },
+      visible,
+      title,
+      values,
+      width,
+    } = this.props;
     const me = this;
     return (
       <Modal
@@ -76,66 +82,58 @@ class GroupsEditModal extends PureComponent {
         <Form>
           <Row gutter={8}>
             <Col span={24} className={styles.hidden}>
-              <FormItem
-                {...formItemLayout}
-                label="itemId"
-              >{getFieldDecorator('itemId', {
-                initialValue: values.itemId,
-              })(<Input placeholder="系统自动生成无需编辑" />)}
+              <FormItem {...formItemLayout} label="itemId">
+                {getFieldDecorator('itemId', {
+                  initialValue: values.itemId,
+                })(<Input placeholder="系统自动生成无需编辑" />)}
               </FormItem>
             </Col>
             <Col span={24}>
-              <FormItem
-                {...formItemLayout}
-                label="分组类别"
-              >{getFieldDecorator('type', {
-                initialValue: values.type,
-                validateTrigger: 'onBlur',
-                rules: [
-                  { required: true, message: '分组类别名称不能为空!' }
-                ]
-              })(
-                <Select>
-                  <Option value="laiyuan">客户来源</Option>
-                  <Option value="hangye">所属行业</Option>
-                  <Option value="level">客户等级</Option>
-                </Select>
-              )}
+              <FormItem {...formItemLayout} label="分组类别">
+                {getFieldDecorator('type', {
+                  initialValue: values.type,
+                  validateTrigger: 'onBlur',
+                  rules: [{ required: true, message: '分组类别名称不能为空!' }],
+                })(
+                  <Select>
+                    <Option value="laiyuan">客户来源</Option>
+                    <Option value="hangye">所属行业</Option>
+                    <Option value="level">客户等级</Option>
+                    <Option value="followup">客户跟进方式</Option>
+                  </Select>
+                )}
               </FormItem>
             </Col>
             <Col span={24}>
-              <FormItem
-                {...formItemLayout}
-                label="分组编码"
-              >{getFieldDecorator('itemCode', {
-                initialValue: values.itemCode,
-                validateTrigger: 'onBlur',
-                rules: [
-                  { required: true, message: '分组编码不能为空!' },
-                  {
-                    validator(rule, fieldValues, callback) {
-                      me.uniqueValid('itemCode', fieldValues, callback)
-                    }
-                  }
-                ],
-              })(<Input placeholder="请输入分组编码" />)}
+              <FormItem {...formItemLayout} label="分组编码">
+                {getFieldDecorator('itemCode', {
+                  initialValue: values.itemCode,
+                  validateTrigger: 'onBlur',
+                  rules: [
+                    { required: true, message: '分组编码不能为空!' },
+                    {
+                      validator(rule, fieldValues, callback) {
+                        me.uniqueValid('itemCode', fieldValues, callback);
+                      },
+                    },
+                  ],
+                })(<Input placeholder="请输入分组编码" />)}
               </FormItem>
             </Col>
             <Col span={24}>
-              <FormItem
-                {...formItemLayout}
-                label="分组名称"
-              >{getFieldDecorator('itemName', {
-                initialValue: values.itemName,
-                validateTrigger: 'onBlur',
-                rules: [
-                  { required: true, message: '分组名称不能为空!' },
-                  {
-                    validator(rule, fieldValues, callback) {
-                      me.uniqueValid('itemName', fieldValues, callback)
-                    }
-                  }],
-              })(<Input placeholder="请输入分组名称" />)}
+              <FormItem {...formItemLayout} label="分组名称">
+                {getFieldDecorator('itemName', {
+                  initialValue: values.itemName,
+                  validateTrigger: 'onBlur',
+                  rules: [
+                    { required: true, message: '分组名称不能为空!' },
+                    {
+                      validator(rule, fieldValues, callback) {
+                        me.uniqueValid('itemName', fieldValues, callback);
+                      },
+                    },
+                  ],
+                })(<Input placeholder="请输入分组名称" />)}
               </FormItem>
             </Col>
           </Row>

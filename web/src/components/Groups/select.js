@@ -21,7 +21,6 @@ class GroupsSelect extends PureComponent {
 
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       type: props.type,
       defaultValue: props.value,
@@ -35,10 +34,11 @@ class GroupsSelect extends PureComponent {
     dispatch({
       type: 'groups/fetch',
       payload: { type },
-      callback: response => this.setState({
-        data: response.data && response.data.list
-      })
-    })
+      callback: response =>
+        this.setState({
+          data: response.data && response.data.list,
+        }),
+    });
   }
 
   handleSelectChange = value => {
@@ -55,9 +55,14 @@ class GroupsSelect extends PureComponent {
 
   renderOptions = () => {
     const { data } = this.state;
-    const options = data.map(item =>
-      <Option key={item.itemId} value={item.itemId}>{item.itemName}</Option>
-    );
+    if (undefined === data) {
+      return null;
+    }
+    const options = data.map(item => (
+      <Option key={item.itemId} value={item.itemId}>
+        {item.itemName}
+      </Option>
+    ));
     return options;
   };
 
@@ -66,11 +71,7 @@ class GroupsSelect extends PureComponent {
     const { defaultValue } = this.state;
     return (
       <span>
-        <Select
-          defaultValue={defaultValue}
-          size={size}
-          onChange={this.handleSelectChange}
-        >
+        <Select defaultValue={defaultValue} size={size} onChange={this.handleSelectChange}>
           {this.renderOptions()}
         </Select>
       </span>

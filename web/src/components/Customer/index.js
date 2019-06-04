@@ -5,11 +5,11 @@ import Ellipsis from '@/components/Ellipsis';
 import StandardTable from '@/components/StandardTable';
 import CustomerViewModal from './view';
 import CustomerEditModal from './edit';
+import FollowupEditModal from './followup';
 
 import { width } from '@/utils/styles';
 
 const { idWorker, time, action: actionWidth } = width;
-
 
 @connect(({ customer, loading }) => ({
   customer,
@@ -20,6 +20,7 @@ class CustomerTable extends PureComponent {
     values: null,
     viewModalVisible: false,
     editModalVisible: false,
+    followModalVisible: false,
   };
 
   onView = record => {
@@ -44,6 +45,13 @@ class CustomerTable extends PureComponent {
         values: record,
       });
     }
+  };
+
+  onFollow = record => {
+    this.setState({
+      followModalVisible: true,
+      values: record,
+    });
   };
 
   onDelete = record => {
@@ -73,7 +81,7 @@ class CustomerTable extends PureComponent {
 
   render() {
     const { data, loading, action, selectedRows, onChange } = this.props;
-    const { viewModalVisible, editModalVisible, values } = this.state;
+    const { viewModalVisible, editModalVisible, followModalVisible, values } = this.state;
     const columns = [];
     if (action) {
       Object.assign(action, { key: 'action' });
@@ -82,12 +90,14 @@ class CustomerTable extends PureComponent {
       columns.push({
         key: 'action',
         title: '操作',
-        width: 3 * actionWidth,
+        width: 4 * actionWidth,
         render: (text, record) => (
           <Fragment>
             <a onClick={() => this.onView(record)}>详情</a>
             <Divider type="vertical" />
             <a onClick={() => this.onEdit(record)}>编辑</a>
+            <Divider type="vertical" />
+            <a onClick={() => this.onFollow(record)}>跟进记录</a>
             <Divider type="vertical" />
             <Popconfirm title="确认删除吗?" onConfirm={() => this.onDelete(record)}>
               <a href="#">删除</a>
@@ -97,17 +107,20 @@ class CustomerTable extends PureComponent {
       });
     }
 
-
     const defaultColumns = [
-      { 'dataIndex': 'customerId', 'sorter': false, 'title': '客户编号', 'type': 0, 'width': idWorker },
+      { dataIndex: 'customerId', sorter: false, title: '客户编号', type: 0, width: idWorker },
       {
-        'dataIndex': 'customerName',
-        'sorter': false,
-        'title': '公司名称',
-        'type': 0,
-        render: text => <Ellipsis tooltip length={10}>{text}</Ellipsis>,
+        dataIndex: 'customerName',
+        sorter: false,
+        title: '公司名称',
+        type: 0,
+        render: text => (
+          <Ellipsis tooltip length={10}>
+            {text}
+          </Ellipsis>
+        ),
       },
-      { 'dataIndex': 'createAt', 'sorter': false, 'title': '录入时间', 'type': 0, 'width': time },
+      { dataIndex: 'createAt', sorter: false, title: '录入时间', type: 0, width: time },
     ];
     columns.push(...defaultColumns);
 
@@ -136,6 +149,14 @@ class CustomerTable extends PureComponent {
             values={values}
             onOk={() => this.hideModal('editModalVisible', true)}
             onCancel={() => this.hideModal('editModalVisible', false)}
+          />
+        )}
+        {followModalVisible && (
+          <FollowupEditModal
+            visible={followModalVisible}
+            values={values}
+            onOk={() => this.hideModal('followModalVisible', true)}
+            onCancel={() => this.hideModal('followModalVisible', false)}
           />
         )}
       </Fragment>

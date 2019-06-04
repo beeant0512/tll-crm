@@ -27,23 +27,6 @@ const plugins = [
         webpackChunkName: true,
         level: 3,
       },
-      pwa: pwa
-        ? {
-            workboxPluginMode: 'InjectManifest',
-            workboxOptions: {
-              importWorkboxFrom: 'local',
-            },
-          }
-        : false,
-      ...(!TEST && os.platform() === 'darwin'
-        ? {
-            dll: {
-              include: ['dva', 'dva/router', 'dva/saga', 'dva/fetch'],
-              exclude: ['@babel/runtime', 'netlify-lambda'],
-            },
-            hardSource: false,
-          }
-        : {}),
     },
   ],
 ];
