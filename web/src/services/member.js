@@ -7,7 +7,7 @@ import request from '@/utils/request';
  * @returns {Promise<*>}
  */
 export async function query(params) {
-  return request(`/member/table?${stringify(params)}`);
+  return request(`/api/member/table?${stringify(params)}`);
 }
 
 /**
@@ -16,7 +16,7 @@ export async function query(params) {
  * @returns {Promise<*>}
  */
 export async function get(params) {
-  return request(`/member/?${stringify(params)}`);
+  return request(`/api/member/?${stringify(params)}`);
 }
 
 /**
@@ -25,7 +25,7 @@ export async function get(params) {
  * @returns {Promise<*>}
  */
 export async function remove(params) {
-  return request(`/member/delete`, {
+  return request(`/api/member/delete`, {
     method: 'POST',
     body: {
       ...params,
@@ -39,7 +39,7 @@ export async function remove(params) {
  * @returns {Promise<*>}
  */
 export async function add(params) {
-  return request(`/member`, {
+  return request(`/api/member`, {
     method: 'POST',
     body: {
       ...params,
@@ -54,7 +54,7 @@ export async function add(params) {
  * @returns {Promise<*>}
  */
 export async function update(params) {
-  return request(`/member/${params.userId}`, {
+  return request(`/api/member/${params.userId}`, {
     method: 'PUT',
     body: {
       ...params,
@@ -69,7 +69,7 @@ export async function update(params) {
  * @returns {Promise<*>}
  */
 export async function validate(params) {
-  return request(`/member/validate`, {
+  return request(`/api/member/validate`, {
     method: 'POST',
     body: {
       ...params,

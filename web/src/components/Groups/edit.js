@@ -72,7 +72,7 @@ class GroupsEditModal extends PureComponent {
     const me = this;
     return (
       <Modal
-        width={width || 800}
+        width={width || 1024}
         maskClosable={false}
         title={title || '编辑'}
         visible={visible}

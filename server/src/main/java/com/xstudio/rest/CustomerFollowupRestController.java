@@ -1,6 +1,7 @@
 package com.xstudio.rest;
 
-import com.xstudio.crm.model.Customer;
+import com.xstudio.crm.model.CustomerFollowUp;
+import com.xstudio.crm.service.ICustomerFollowUpService;
 import com.xstudio.crm.service.ICustomerService;
 import com.xstudio.rest.vo.CustomerVo;
 import com.xstudio.spring.mybatis.rest.AbstractMybatisPaginatorRestController;
@@ -10,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/customer")
-public class CustomerRestController extends AbstractMybatisPaginatorRestController<CustomerVo, Long> {
+@RequestMapping("api/customerFollowUp")
+public class CustomerFollowupRestController extends AbstractMybatisPaginatorRestController<CustomerFollowUp, Long> {
     @Autowired
-    private ICustomerService customerService;
+    private ICustomerFollowUpService customerFollowUpService;
 
     @Override
     public IAbstractService getService() {
-        return customerService;
+        return customerFollowUpService;
     }
 }
 

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("groups")
+@RequestMapping("api/groups")
 public class GroupsRestController extends AbstractMybatisPaginatorRestController<Groups, Long> {
     @Autowired
     private IGroupsService groupsService;

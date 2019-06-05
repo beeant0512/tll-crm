@@ -127,7 +127,7 @@ class CustomerEditModal extends PureComponent {
     ));
     return (
       <Modal
-        width={width || 800}
+        width={width || 1024}
         maskClosable={false}
         title={title || `编辑: ${values.customerName}`}
         visible={visible}

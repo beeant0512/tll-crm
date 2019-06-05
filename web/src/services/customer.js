@@ -7,7 +7,7 @@ import request from '@/utils/request';
  * @returns {Promise<*>}
  */
 export async function query(params) {
-  return request(`/customer/table?${stringify(params)}`);
+  return request(`/api/customer/table?${stringify(params)}`);
 }
 
 /**
@@ -16,7 +16,7 @@ export async function query(params) {
  * @returns {Promise<*>}
  */
 export async function get(params) {
-  return request(`/customer/?${stringify(params)}`);
+  return request(`/api/customer/?${stringify(params)}`);
 }
 
 /**
@@ -25,7 +25,7 @@ export async function get(params) {
  * @returns {Promise<*>}
  */
 export async function remove(params) {
-  return request(`/customer/delete`, {
+  return request(`/api/customer/delete`, {
     method: 'POST',
     body: {
       ...params,
@@ -39,7 +39,7 @@ export async function remove(params) {
  * @returns {Promise<*>}
  */
 export async function add(params) {
-  return request(`/customer`, {
+  return request(`/api/customer`, {
     method: 'POST',
     body: {
       ...params,
@@ -54,7 +54,7 @@ export async function add(params) {
  * @returns {Promise<*>}
  */
 export async function update(params) {
-  return request(`/customer/${params.customerId}`, {
+  return request(`/api/customer/${params.customerId}`, {
     method: 'PUT',
     body: {
       ...params,
@@ -69,7 +69,7 @@ export async function update(params) {
  * @returns {Promise<*>}
  */
 export async function validate(params) {
-  return request(`/customer/validate`, {
+  return request(`/api/customer/validate`, {
     method: 'POST',
     body: {
       ...params,

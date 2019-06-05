@@ -7,7 +7,7 @@ import request from '@/utils/request';
  * @returns {Promise<*>}
  */
 export async function query(params) {
-  return request(`/groups/table?${stringify(params)}`);
+  return request(`/api/groups/table?${stringify(params)}`);
 }
 
 /**
@@ -16,7 +16,7 @@ export async function query(params) {
  * @returns {Promise<*>}
  */
 export async function get(params) {
-  return request(`/groups/?${stringify(params)}`);
+  return request(`/api/groups/?${stringify(params)}`);
 }
 
 /**
@@ -25,7 +25,7 @@ export async function get(params) {
  * @returns {Promise<*>}
  */
 export async function remove(params) {
-  return request(`/groups/delete`, {
+  return request(`/api/groups/delete`, {
     method: 'POST',
     body: {
       ...params,
@@ -39,7 +39,7 @@ export async function remove(params) {
  * @returns {Promise<*>}
  */
 export async function add(params) {
-  return request(`/groups`, {
+  return request(`/api/groups`, {
     method: 'POST',
     body: {
       ...params,
@@ -54,7 +54,7 @@ export async function add(params) {
  * @returns {Promise<*>}
  */
 export async function update(params) {
-  return request(`/groups/${params.itemId}`, {
+  return request(`/api/groups/${params.itemId}`, {
     method: 'PUT',
     body: {
       ...params,
@@ -69,7 +69,7 @@ export async function update(params) {
  * @returns {Promise<*>}
  */
 export async function validate(params) {
-  return request(`/groups/validate`, {
+  return request(`/api/groups/validate`, {
     method: 'POST',
     body: {
       ...params,

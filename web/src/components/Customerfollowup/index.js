@@ -1,26 +1,21 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import { Divider, Popconfirm } from 'antd';
-import Ellipsis from '@/components/Ellipsis';
 import StandardTable from '@/components/StandardTable';
-import CustomerViewModal from './view';
-import CustomerEditModal from './edit';
-import FollowupEditModal from './followup';
+import CustomerfollowupViewModal from './view';
 
 import { width } from '@/utils/styles';
 
-const { idWorker, time, action: actionWidth } = width;
+const { time, action: actionWidth } = width;
 
-@connect(({ customer, loading }) => ({
-  customer,
-  loading: loading.effects['customer/fetch'],
+@connect(({ customerFollowUp, loading }) => ({
+  customerFollowUp,
+  loading: loading.effects['customerFollowUp/fetch'],
 }))
-class CustomerTable extends PureComponent {
+class CustomerfollowupTable extends PureComponent {
   state = {
     values: null,
     viewModalVisible: false,
-    editModalVisible: false,
-    followModalVisible: false,
   };
 
   onView = record => {
@@ -35,29 +30,10 @@ class CustomerTable extends PureComponent {
     }
   };
 
-  onEdit = record => {
-    const { onEdit } = this.props;
-    if (onEdit) {
-      onEdit(record, this);
-    } else {
-      this.setState({
-        editModalVisible: true,
-        values: record,
-      });
-    }
-  };
-
-  onFollow = record => {
-    this.setState({
-      followModalVisible: true,
-      values: record,
-    });
-  };
-
   onDelete = record => {
     const { onDelete, dispatch } = this.props;
     dispatch({
-      type: 'customer/remove',
+      type: 'customerFollowUp/remove',
       payload: {
         id: record.id,
       },
@@ -81,7 +57,7 @@ class CustomerTable extends PureComponent {
 
   render() {
     const { data, loading, action, selectedRows, onChange } = this.props;
-    const { viewModalVisible, editModalVisible, followModalVisible, values } = this.state;
+    const { viewModalVisible, values } = this.state;
     const columns = [];
     if (action) {
       Object.assign(action, { key: 'action' });
@@ -90,12 +66,10 @@ class CustomerTable extends PureComponent {
       columns.push({
         key: 'action',
         title: '操作',
-        width: 4 * actionWidth,
+        width: 3 * actionWidth,
         render: (text, record) => (
           <Fragment>
             <a onClick={() => this.onView(record)}>详情</a>
-            <Divider type="vertical" />
-            <a onClick={() => this.onFollow(record)}>跟进记录</a>
             <Divider type="vertical" />
             <Popconfirm title="确认删除吗?" onConfirm={() => this.onDelete(record)}>
               <a href="#">删除</a>
@@ -106,19 +80,7 @@ class CustomerTable extends PureComponent {
     }
 
     const defaultColumns = [
-      { dataIndex: 'customerId', sorter: false, title: '客户编号', type: 0, width: idWorker },
-      {
-        dataIndex: 'customerName',
-        sorter: false,
-        title: '公司名称',
-        type: 0,
-        render: text => (
-          <Ellipsis tooltip length={10}>
-            {text}
-          </Ellipsis>
-        ),
-      },
-      { dataIndex: 'createAt', sorter: false, title: '录入时间', type: 0, width: time },
+      { dataIndex: 'createAt', sorter: false, title: '跟进时间', width: time },
     ];
     columns.push(...defaultColumns);
 
@@ -128,33 +90,17 @@ class CustomerTable extends PureComponent {
           selectedRows={selectedRows}
           loading={loading}
           data={data}
-          rowKey="customerId"
+          rowKey="id"
           columns={columns}
           onSelectRow={this.handleSelectRows}
           onChange={onChange}
         />
         {viewModalVisible && (
-          <CustomerViewModal
+          <CustomerfollowupViewModal
             visible={viewModalVisible}
             values={values}
             onOk={() => this.hideModal('viewModalVisible', true)}
             onCancel={() => this.hideModal('viewModalVisible', false)}
-          />
-        )}
-        {editModalVisible && (
-          <CustomerEditModal
-            visible={editModalVisible}
-            values={values}
-            onOk={() => this.hideModal('editModalVisible', true)}
-            onCancel={() => this.hideModal('editModalVisible', false)}
-          />
-        )}
-        {followModalVisible && (
-          <FollowupEditModal
-            visible={followModalVisible}
-            values={values}
-            onOk={() => this.hideModal('followModalVisible', true)}
-            onCancel={() => this.hideModal('followModalVisible', false)}
           />
         )}
       </Fragment>
@@ -162,4 +108,4 @@ class CustomerTable extends PureComponent {
   }
 }
 
-export default CustomerTable;
+export default CustomerfollowupTable;

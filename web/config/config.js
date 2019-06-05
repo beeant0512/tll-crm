@@ -67,15 +67,15 @@ export default {
       changeOrigin: true,
       pathRewrite: { '^/api/login/account': '/login' },
     },
-    '/groups': {
+    '/api/groups': {
       target: 'http://localhost:8080/',
       changeOrigin: true,
     },
-    '/member': {
+    '/api/member': {
       target: 'http://localhost:8080/',
       changeOrigin: true,
     },
-    '/customer': {
+    '/api/customer': {
       target: 'http://localhost:8080/',
       changeOrigin: true,
     },
