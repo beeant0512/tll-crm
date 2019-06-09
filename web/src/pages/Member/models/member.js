@@ -5,6 +5,8 @@ import {
   update,
   query,
   validate,
+  lizhi,
+  changePwd
 } from '@/services/member';
 
 export default {
@@ -41,6 +43,18 @@ export default {
     },
     *update({ payload, callback }, { call }) {
       const response = yield call(update, payload);
+      if (callback){
+        callback(response);
+      }
+    },
+    *lizhi({ payload, callback }, { call }) {
+      const response = yield call(lizhi, payload);
+      if (callback){
+        callback(response);
+      }
+    },
+    *changePwd({ payload, callback }, { call }) {
+      const response = yield call(changePwd, payload);
       if (callback){
         callback(response);
       }

@@ -25,6 +25,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable();
 
+        http.antMatcher("/**")
+                .authorizeRequests()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin().loginPage("/api/login/account")
+                .loginProcessingUrl("/api/login/account")
+                .successHandler(new AuthenticationSuccessHandler())
+        ;
+
         // 登录参数拦截器
         http.addFilterAt(new LoginBodyParamFilter(authenticationManagerBean()), UsernamePasswordAuthenticationFilter.class);
 

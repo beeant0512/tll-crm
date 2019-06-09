@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { Input, Button, Form, Card, Icon, Row, Col } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import MemberTable from '@/components/Member';
-import MemberEditModal from '@/components/Member/edit';
+import MemberEditModal from '@/components/Member/add';
 import { getTableFilter, toggleForm } from '@/utils/xsutils';
 
 import styles from '@/global.less';

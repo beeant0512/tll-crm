@@ -10,6 +10,10 @@ export async function query(params) {
   return request(`/api/customer/table?${stringify(params)}`);
 }
 
+export async function pool(params) {
+  return request(`/api/customer/pool?${stringify(params)}`);
+}
+
 /**
  * 获取详情
  * @param params
@@ -76,4 +80,19 @@ export async function validate(params) {
       method: 'post',
     },
   });
+}
+
+export async function lingqu(params) {
+  return request(`/api/customer/lingqu`, {
+    method: 'POST',
+    body: params
+  });
+}
+
+export async function thisweek() {
+  return request(`/api/customer/thisweek?`);
+}
+
+export async function nonFollowup(params) {
+  return request(`/api/customer/nonFollowup?${stringify(params)}`);
 }

@@ -1,4 +1,4 @@
-package com.xstudio.rest;
+package com.xstudio.rest.vo;
 
 import lombok.Data;
 

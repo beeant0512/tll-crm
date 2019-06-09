@@ -1,6 +1,8 @@
 package com.xstudio.rest;
 
-import org.springframework.web.bind.annotation.PostMapping;
+import com.xstudio.config.security.SecurityContextUtil;
+import com.xstudio.rest.vo.AntdUser;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,14 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
  * @author xiaobiao
  * @version 2019/6/6
  */
-@RequestMapping("api/login")
+@RequestMapping("api")
 @RestController
 public class LoginRestController {
-    @PostMapping("account")
-    public AntdLoginResponse login(){
-        AntdLoginResponse antdLoginResponse = new AntdLoginResponse();
-        antdLoginResponse.setCurrentAuthority("admin");
-        antdLoginResponse.setStatus("ok");
-        return antdLoginResponse;
+    @GetMapping("currentUser")
+    public AntdUser currentUser() {
+        AntdUser user = new AntdUser();
+        user.setName(SecurityContextUtil.username());
+        return user;
     }
 }

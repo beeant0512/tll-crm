@@ -9,7 +9,7 @@ export default {
   'menu.dashboard.workplace': '工作台',
   'menu.customer': '客户管理',
   'menu.customer.mine': '我的客户',
-  'menu.customer.pool': '客户池',
+  'menu.customer.pool': '公海',
   'menu.admin': '后台管理',
   'menu.admin.member': '员工管理',
   'menu.admin.groups': '分组管理',

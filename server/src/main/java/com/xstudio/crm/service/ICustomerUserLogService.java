@@ -10,4 +10,11 @@ import com.xstudio.spring.mybatis.paginator.IMybatisPaginatorService;
  * @version Sun Jun 09 08:01:21 CST 2019
  */
 public interface ICustomerUserLogService extends IMybatisPaginatorService<CustomerUserLog, Long> {
+
+    /**
+     * 领取日志
+     * @param customerId
+     * @param principalId
+     */
+    void newLingQu(Long customerId, Long principalId);
 }

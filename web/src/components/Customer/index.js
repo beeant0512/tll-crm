@@ -6,6 +6,7 @@ import StandardTable from '@/components/StandardTable';
 import CustomerViewModal from './view';
 import CustomerEditModal from './edit';
 import FollowupEditModal from './followup';
+import RuZhuEditModal from '@/components/Customerruzhu/edit';
 
 import { width } from '@/utils/styles';
 
@@ -21,6 +22,7 @@ class CustomerTable extends PureComponent {
     viewModalVisible: false,
     editModalVisible: false,
     followModalVisible: false,
+    ruZhuModalVisible: false,
   };
 
   onView = record => {
@@ -47,6 +49,13 @@ class CustomerTable extends PureComponent {
     }
   };
 
+  onRuZhu = record => {
+    this.setState({
+      ruZhuModalVisible: true,
+      values: record,
+    });
+  };
+
   onFollow = record => {
     this.setState({
       followModalVisible: true,
@@ -59,7 +68,7 @@ class CustomerTable extends PureComponent {
     dispatch({
       type: 'customer/remove',
       payload: {
-        id: record.id,
+        customerId: record.customerId,
       },
       callback: response => {
         if (response.success && onDelete) {
@@ -81,7 +90,7 @@ class CustomerTable extends PureComponent {
 
   render() {
     const { data, loading, action, selectedRows, onChange } = this.props;
-    const { viewModalVisible, editModalVisible, followModalVisible, values } = this.state;
+    const { viewModalVisible, editModalVisible, followModalVisible, ruZhuModalVisible, values } = this.state;
     const columns = [];
     if (action) {
       Object.assign(action, { key: 'action' });
@@ -96,6 +105,8 @@ class CustomerTable extends PureComponent {
             <a onClick={() => this.onView(record)}>详情</a>
             <Divider type="vertical" />
             <a onClick={() => this.onFollow(record)}>跟进记录</a>
+            <Divider type="vertical" />
+            <a onClick={() => this.onRuZhu(record)}>办理入驻</a>
             <Divider type="vertical" />
             <Popconfirm title="确认删除吗?" onConfirm={() => this.onDelete(record)}>
               <a href="#">删除</a>
@@ -155,6 +166,14 @@ class CustomerTable extends PureComponent {
             values={values}
             onOk={() => this.hideModal('followModalVisible', true)}
             onCancel={() => this.hideModal('followModalVisible', false)}
+          />
+        )}
+        {ruZhuModalVisible && (
+          <RuZhuEditModal
+            visible={ruZhuModalVisible}
+            values={values}
+            onOk={() => this.hideModal('ruZhuModalVisible', true)}
+            onCancel={() => this.hideModal('ruZhuModalVisible', false)}
           />
         )}
       </Fragment>

@@ -45,7 +45,7 @@ export default [
           {
             path: '/customer/pool',
             name: 'pool',
-            component: './Customer',
+            component: './Customer/pool',
           },
         ],
       },
@@ -54,7 +54,7 @@ export default [
         path: '/admin',
         icon: 'table',
         name: 'admin',
-        authority: ['admin', 'user'],
+        authority: ['admin'],
         routes: [
           {
             path: '/admin/member',
@@ -65,40 +65,6 @@ export default [
             path: '/admin/groups',
             name: 'groups',
             component: './Groups',
-          },
-        ],
-      },
-      {
-        name: 'account',
-        icon: 'user',
-        path: '/account',
-        routes: [
-          {
-            path: '/account/settings',
-            name: 'settings',
-            component: './Account/Settings/Info',
-            routes: [
-              {
-                path: '/account/settings',
-                redirect: '/account/settings/base',
-              },
-              {
-                path: '/account/settings/base',
-                component: './Account/Settings/BaseView',
-              },
-              {
-                path: '/account/settings/security',
-                component: './Account/Settings/SecurityView',
-              },
-              {
-                path: '/account/settings/binding',
-                component: './Account/Settings/BindingView',
-              },
-              {
-                path: '/account/settings/notification',
-                component: './Account/Settings/NotificationView',
-              },
-            ],
           },
         ],
       },

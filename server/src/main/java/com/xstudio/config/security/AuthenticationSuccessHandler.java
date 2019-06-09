@@ -1,6 +1,6 @@
 package com.xstudio.config.security;
 
-import com.xstudio.rest.AntdLoginResponse;
+import com.xstudio.rest.vo.AntdLoginResponse;
 import com.xstudio.tool.request.RequestUtil;
 import org.apache.http.HttpStatus;
 import org.springframework.security.core.Authentication;

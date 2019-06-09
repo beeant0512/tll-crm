@@ -3,7 +3,8 @@ import { connect } from 'dva';
 import { Divider, Popconfirm } from 'antd';
 import BasicTable from '@/components/StandardTable';
 import MemberViewModal from './view';
-import MemberEditModal from './edit';
+import MemberPasswordModal from './password';
+import MemberLiZhiModal from './lizhi';
 
 import { width } from '@/utils/styles';
 
@@ -19,6 +20,7 @@ class MemberTable extends PureComponent {
     values: null,
     viewModalVisible: false,
     editModalVisible: false,
+    liZhiModalVisible: false,
   };
 
   onView = record => {
@@ -43,6 +45,13 @@ class MemberTable extends PureComponent {
         values: record,
       });
     }
+  };
+
+  onLiZhi = record => {
+    this.setState({
+      liZhiModalVisible: true,
+      values: record,
+    });
   };
 
   onDelete = record => {
@@ -72,7 +81,7 @@ class MemberTable extends PureComponent {
 
   render() {
     const { data, loading, action, selectedRows, onChange } = this.props;
-    const { viewModalVisible, editModalVisible, values } = this.state;
+    const { viewModalVisible, editModalVisible, liZhiModalVisible, values } = this.state;
     const columns = [];
     if (action) {
       Object.assign(action, { key: 'action' });
@@ -86,11 +95,9 @@ class MemberTable extends PureComponent {
           <Fragment>
             <a onClick={() => this.onView(record)}>详情</a>
             <Divider type="vertical" />
-            <a onClick={() => this.onEdit(record)}>编辑</a>
+            <a onClick={() => this.onEdit(record)}>重置密码</a>
             <Divider type="vertical" />
-            <Popconfirm title="确认删除吗?" onConfirm={() => this.onDelete(record)}>
-              <a href="#">删除</a>
-            </Popconfirm>
+            <a onClick={() => this.onLiZhi(record)}>离职</a>
           </Fragment>
         ),
       });
@@ -109,7 +116,7 @@ class MemberTable extends PureComponent {
           selectedRows={selectedRows}
           loading={loading}
           data={data}
-          rowKey="id"
+          rowKey="userId"
           columns={columns}
           onSelectRow={this.handleSelectRows}
           onChange={onChange}
@@ -123,11 +130,19 @@ class MemberTable extends PureComponent {
           />
         )}
         {editModalVisible && (
-          <MemberEditModal
+          <MemberPasswordModal
             visible={editModalVisible}
             values={values}
             onOk={() => this.hideModal('editModalVisible', true)}
             onCancel={() => this.hideModal('editModalVisible', false)}
+          />
+        )}
+        {liZhiModalVisible && (
+          <MemberLiZhiModal
+            visible={liZhiModalVisible}
+            values={values}
+            onOk={() => this.hideModal('liZhiModalVisible', true)}
+            onCancel={() => this.hideModal('liZhiModalVisible', false)}
           />
         )}
       </Fragment>

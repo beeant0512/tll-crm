@@ -1,5 +1,6 @@
 package com.xstudio.crm.service.impl;
 
+import com.xstudio.config.security.SecurityContextUtil;
 import com.xstudio.crm.mapper.CustomerUserLogMapper;
 import com.xstudio.crm.model.CustomerUserLog;
 import com.xstudio.crm.service.ICustomerUserLogService;
@@ -27,13 +28,21 @@ public class CustomerUserLogServiceImpl extends MybatisPaginatorServiceImpl<Cust
 
     @Override
     public void setDefaults(CustomerUserLog record) {
-        if(record.getContactsId() == null ) {
-            record.setContactsId(IdWorker.getId());
+        if(record.getLogId() == null ) {
+            record.setLogId(IdWorker.getId());
         }
     }
 
     @Override
+    public void newLingQu(Long customerId, Long principalId) {
+        CustomerUserLog log = new CustomerUserLog();
+        log.setCustomerId(customerId);
+        log.setCreateBy(String.valueOf(principalId));
+        insertSelective(log);
+    }
+
+    @Override
     public String getActorId(CustomerUserLog record) {
-        return null;
+        return String.valueOf(SecurityContextUtil.userId());
     }
 }

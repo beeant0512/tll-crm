@@ -1,19 +1,21 @@
 package com.xstudio.crm.service.impl;
 
-import com.xstudio.config.security.AppUserDetails;
-import com.xstudio.config.security.SecurityContextUtil;
 import com.xstudio.crm.mapper.UserMapper;
 import com.xstudio.crm.model.User;
 import com.xstudio.crm.service.IUserService;
 import com.xstudio.spring.mybatis.paginator.IMybatisPaginatorDao;
 import com.xstudio.spring.mybatis.paginator.MybatisPaginatorServiceImpl;
 import com.xstudio.tool.utils.IdWorker;
-import com.xstudio.tool.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import com.xstudio.config.security.AppUserDetails;
+import com.xstudio.config.security.SecurityContextUtil;
+import com.xstudio.tool.utils.Msg;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ import java.util.List;
  * service implements for table user
  *
  * @author mybatis generator
- * @version Sun Jun 02 15:06:23 CST 2019
+ * @version Sun Jun 09 11:26:38 CST 2019
  */
 @Service
 public class UserServiceImpl extends MybatisPaginatorServiceImpl<User, Long> implements IUserService {
@@ -30,9 +32,18 @@ public class UserServiceImpl extends MybatisPaginatorServiceImpl<User, Long> imp
     @Autowired
     private UserMapper userMapper;
 
+    private static BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
     @Override
     public IMybatisPaginatorDao<User, Long> getRepositoryDao() {
         return this.userMapper;
+    }
+
+    @Override
+    public Msg<User> insertSelective(User record) {
+        String encode = bCryptPasswordEncoder.encode(record.getPwd());
+        record.setPwd(encode);
+        return super.insertSelective(record);
     }
 
     @Override
@@ -56,6 +67,9 @@ public class UserServiceImpl extends MybatisPaginatorServiceImpl<User, Long> imp
             throw new UsernameNotFoundException(username);
         }
         User user = userMsg.getData();
+        if (user.getLeaving() != null) {
+            throw new UsernameNotFoundException(username);
+        }
         SimpleGrantedAuthority userAuthority = new SimpleGrantedAuthority("user");
         SimpleGrantedAuthority adminAuthority = new SimpleGrantedAuthority("admin");
         List<SimpleGrantedAuthority> authorities = new ArrayList();

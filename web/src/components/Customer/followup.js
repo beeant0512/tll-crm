@@ -77,6 +77,7 @@ class CustomerfollowupEditModal extends Component {
         payload: values,
         callback: response => {
           if (response.success) {
+            form.resetFields();
             this.handleRefreshTable();
           }
         },

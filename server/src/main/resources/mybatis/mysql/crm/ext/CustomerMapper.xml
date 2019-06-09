@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xstudio.crm.mapper.CustomerMapper">
+
+    <select id="thisWeekNeedFollowup" resultType="com.xstudio.crm.model.Customer">
+        select * from customer where principal_id = #{userId,jdbcType=BIGINT} and
+        (next_follow_up_day &gt;= #{begin,jdbcType=TIMESTAMP}
+          or (next_follow_up_day = '0000-00-00' and owned_at &gt;= #{weekAgo,jdbcType=TIMESTAMP} )
+        )
+        and ruzhu_day != '0000-00-00'
+    </select>
+    <select id="longTimeNoFollowupByMonth" resultType="com.xstudio.crm.model.Customer">
+        select * from customer where principal_id = #{userId,jdbcType=BIGINT}
+        and ruzhu_day != '0000-00-00'
+        and (
+        (next_follow_up_day &gt; #{dayBegin,jdbcType=TIMESTAMP} and next_follow_up_day &lt; #{dayEnd,jdbcType=TIMESTAMP})
+        or ( next_follow_up_day = '0000-00-00' and owned_at &lt; #{dayBegin,jdbcType=TIMESTAMP} )
+        )
+    </select>
+</mapper>

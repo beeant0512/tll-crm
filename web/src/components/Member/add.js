@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Form, Row, Col, Input, Modal } from 'antd';
+import { Form, Row, Col, Input, Modal, DatePicker } from 'antd';
 import { formItemLayout } from '@/utils/styles';
 import styles from '@/global.less';
 
@@ -40,16 +40,16 @@ class MemberEditModal extends PureComponent {
 
   handleOk = () => {
     const { onOk, form, dispatch } = this.props;
-    form.validateFields((err, values) => {
+    form.validateFields((err, fieldsValue) => {
       if (err) {
         return;
       }
-      let type = 'member/add';
-      if (values.userId) {
-        type = 'member/update';
-      }
+      const values = {
+        ...fieldsValue,
+        hiredate: fieldsValue.hiredate.format('YYYY-MM-DD'),
+      };
       dispatch({
-        type,
+        type: 'member/add',
         payload: values,
         callback: response => {
           if (response.success) {
@@ -133,10 +133,8 @@ class MemberEditModal extends PureComponent {
             <Col span={24}>
               <FormItem {...formItemLayout} label="入职时间">
                 {getFieldDecorator('hiredate', {
-                  initialValue: values.hiredate,
-                  validateTrigger: 'onBlur',
-                  rules: [{ required: true, message: '入职时间不能为空!' }],
-                })(<Input placeholder="请输入入职时间" />)}
+                  rules: [{ type: 'object', required: true, message: '入职时间!' }],
+                })(<DatePicker style={{ width: '100%' }} placeholder="请输入入职时间" />)}
               </FormItem>
             </Col>
           </Row>

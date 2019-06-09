@@ -80,6 +80,10 @@ export default {
       target: 'http://localhost:8080/',
       changeOrigin: true,
     },
+    '/api/customerRuzhu': {
+      target: 'http://localhost:8080/',
+      changeOrigin: true,
+    },
   },
   ignoreMomentLocale: true,
   lessLoaderOptions: {

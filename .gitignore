@@ -74,3 +74,5 @@ web/.umi-production
 # screenshot
 web/screenshot
 web/.firebase
+
+server/src/main/resources/public

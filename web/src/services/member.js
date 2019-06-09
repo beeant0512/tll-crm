@@ -77,3 +77,27 @@ export async function validate(params) {
     },
   });
 }
+
+/**
+ * 更新
+ * @param params
+ * @returns {Promise<*>}
+ */
+export async function lizhi(params) {
+  return request(`/api/member/lizhi`, {
+    method: 'PUT',
+    body: params
+  });
+}
+
+/**
+ * 更新
+ * @param params
+ * @returns {Promise<*>}
+ */
+export async function changePwd(params) {
+  return request(`/api/member/changePwd`, {
+    method: 'PUT',
+    body: params,
+  });
+}

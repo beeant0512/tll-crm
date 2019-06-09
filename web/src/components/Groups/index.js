@@ -110,7 +110,7 @@ class GroupsTable extends PureComponent {
           selectedRows={selectedRows}
           loading={loading}
           data={data}
-          rowKey="id"
+          rowKey="itemId"
           columns={columns}
           onSelectRow={this.handleSelectRows}
           onChange={onChange}
