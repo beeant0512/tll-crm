@@ -13,6 +13,8 @@
 
  Date: 04/06/2019 22:41:29
 */
+CREATE DATABASE IF NOT EXISTS `crm` DEFAULT CHARACTER SET utf8;
+use crm;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
@@ -21,19 +23,34 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for customer
 -- ----------------------------
 DROP TABLE IF EXISTS `customer`;
-CREATE TABLE `customer`  (
-  `customer_id` bigint(20) UNSIGNED NOT NULL COMMENT '客户ID',
-  `customer_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '客户名称',
-  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '联系地址',
-  `industry` bigint(20) UNSIGNED NOT NULL COMMENT '所属行业',
-  `source` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '客户来源',
-  `create_at` datetime(0) NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '录入时间',
-  `create_by` bigint(20) UNSIGNED NOT NULL COMMENT '录入人ID',
-  `update_at` datetime(0) NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
-  `update_by` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新人ID',
+CREATE TABLE `customer` (
+  `customer_id` bigint(20) unsigned NOT NULL COMMENT '客户ID',
+  `customer_name` varchar(100) NOT NULL DEFAULT '' COMMENT '客户名称',
+  `address` varchar(255) NOT NULL DEFAULT '' COMMENT '联系地址',
+  `industry` bigint(20) unsigned NOT NULL COMMENT '所属行业',
+  `source` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '客户来源',
+  `principal_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '当前负责ID',
+  `owned_at` date NOT NULL DEFAULT '0000-00-00' COMMENT '领用时间',
+  `create_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '录入时间',
+  `create_by` bigint(20) unsigned NOT NULL COMMENT '录入人ID',
+  `update_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  `update_by` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '更新人ID',
   PRIMARY KEY (`customer_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '客户表' ROW_FORMAT = Compact;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='客户表';
 
+-- ----------------------------
+-- Table structure for customer_user_log
+-- ----------------------------
+DROP TABLE IF EXISTS `customer_user_log`;
+CREATE TABLE `customer_user_log` (
+  `contacts_id` bigint(20) NOT NULL COMMENT '日志ID',
+  `customer_id` bigint(20) unsigned NOT NULL COMMENT '客户ID',
+  `create_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '领用时间',
+  `create_by` bigint(20) unsigned NOT NULL COMMENT '领用人ID',
+  `update_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  `update_by` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '更新人ID',
+  PRIMARY KEY (`contacts_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='客户联领用记录表';
 -- ----------------------------
 -- Table structure for customer_contacts
 -- ----------------------------

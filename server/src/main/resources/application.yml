@@ -98,6 +98,9 @@ spring:
           login-password: adminxxxxxxx
         driver-class-name: com.mysql.jdbc.Driver
         type: com.alibaba.druid.pool.DruidDataSource
+  thymeleaf:
+    mode: HTML
+    cache: false
 mybatis:
   mapper-locations: classpath:/mybatis/**/**.xml
   type-aliases-package: com.xstudio.crm.model
