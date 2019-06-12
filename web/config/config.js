@@ -24,7 +24,7 @@ const plugins = [
       },
       dynamicImport: {
         loadingComponent: './components/PageLoading/index',
-        webpackChunkName: true,
+        webpackChunkName: false,
         level: 3,
       },
     },

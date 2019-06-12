@@ -76,3 +76,4 @@ web/screenshot
 web/.firebase
 
 server/src/main/resources/public
+server/src/main/resources/templates/**

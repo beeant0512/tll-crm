@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable();
 
-        http.antMatcher("/**")
+        http.antMatcher("/api/**")
                 .authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
@@ -56,6 +56,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
 }

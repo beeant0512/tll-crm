@@ -32,7 +32,7 @@ public class LoginBodyParamFilter extends AbstractAuthenticationProcessingFilter
      * @param authenticationManager {@link AntPathRequestMatcher}
      */
     public LoginBodyParamFilter(AuthenticationManager authenticationManager) {
-        super(new AntPathRequestMatcher("/login", "POST"));
+        super(new AntPathRequestMatcher("/login/account", "POST"));
         this.setAuthenticationSuccessHandler(new AuthenticationSuccessHandler());
         this.setAuthenticationManager(authenticationManager);
     }

@@ -5,10 +5,10 @@ import {
   update,
   query,
   validate,
-} from '@/services/customer';
+} from '@/services/customerRuzhu';
 
 export default {
-  namespace: 'customer',
+  namespace: 'customerRuzhu',
   state: {
     data: { list: [], pagination: {} }, 
   },

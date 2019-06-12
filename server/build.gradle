@@ -18,6 +18,7 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'jacoco'
 apply plugin: "maven"
+//apply plugin: 'war'
 
 ext {
     lombokVersion = "1.18.8"
