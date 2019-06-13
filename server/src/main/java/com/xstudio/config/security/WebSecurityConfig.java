@@ -25,12 +25,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable();
 
-        http.antMatcher("/api/**")
-                .authorizeRequests()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin().loginPage("/api/login/account")
-                .loginProcessingUrl("/api/login/account")
+        http
+                .formLogin().loginPage("/login")
+                .loginProcessingUrl("/login")
                 .successHandler(new AuthenticationSuccessHandler())
         ;
 

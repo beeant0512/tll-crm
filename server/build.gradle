@@ -18,7 +18,7 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'jacoco'
 apply plugin: "maven"
-//apply plugin: 'war'
+apply plugin: 'war'
 
 ext {
     lombokVersion = "1.18.8"
@@ -75,7 +75,7 @@ dependencies {
 
     compile("com.xstudio:spring-web:${toolVersion}")
     compile("com.xstudio:spring-core:${toolVersion}")
-    compile("com.xstudio:spring-quartz:${toolVersion}")
+//    compile("com.xstudio:spring-quartz:${toolVersion}")
     compile("com.xstudio:spring-mybatis-paginator:${toolVersion}")
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator'

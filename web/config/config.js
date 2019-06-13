@@ -63,10 +63,9 @@ export default {
     'primary-color': primaryColor,
   },
   proxy: {
-    '/api/login/account': {
+    '/login/account': {
       target: 'http://localhost:8080/',
       changeOrigin: true,
-      pathRewrite: { '^/api/login/account': '/login' },
     },
     '/api/groups': {
       target: 'http://localhost:8080/',

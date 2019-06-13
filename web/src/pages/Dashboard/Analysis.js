@@ -32,24 +32,8 @@ class Analysis extends Component {
   }
 
   handleRangePickerChange = rangePickerValue => {
-    const { dispatch } = this.props;
     this.setState({
       rangePickerValue,
-    });
-
-    dispatch({
-      type: 'chart/fetchSalesData',
-    });
-  };
-
-  selectDate = type => {
-    const { dispatch } = this.props;
-    this.setState({
-      rangePickerValue: getTimeDistance(type),
-    });
-
-    dispatch({
-      type: 'chart/fetchSalesData',
     });
   };
 
@@ -71,10 +55,7 @@ class Analysis extends Component {
   render() {
     const { rangePickerValue } = this.state;
     const { chart, loading } = this.props;
-    const {
-      visitData,
-      salesData,
-    } = chart;
+    const { visitData, salesData } = chart;
     return (
       <GridContent>
         <Card>
@@ -88,7 +69,6 @@ class Analysis extends Component {
               isActive={this.isActive}
               handleRangePickerChange={this.handleRangePickerChange}
               loading={loading}
-              selectDate={this.selectDate}
             />
           </Suspense>
         </Card>

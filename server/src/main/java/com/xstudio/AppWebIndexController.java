@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class AppWebIndexController {
-    @RequestMapping({"","index"})
+    @RequestMapping({"","index","login"})
     public String index(){
         return "index";
     }
